@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modern Ejs</title>
+</head>
+
+<body>
+
+  <%
+    let data = fetch('https://jsonplaceholder.typicode.com/users')
+      .then(response => response.json())
+      .then(data => {
+        // console.log(data);
+        %>
+
+  <% data.forEach(item => { %>
+  <%= item.name %>
+  <% }) %>
+  <%
+      });
+    %>
+
+  <% console.log(data); %>
+
+  <% data.forEach(item => { %>
+  <%= item.name %>
+  <% }) %>
+
+
+</body>
+
+</html>
