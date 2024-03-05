@@ -7,10 +7,22 @@ use ejs to render html
 
 import express from "express";
 import fs from "fs";
+import ejs from "ejs";
 
 const server = express();
 
 server.set("view engine", "ejs");
+
+// credits: suvan
+// https://stackoverflow.com/questions/60203249/ejs-async-true-with-node-express
+server.engine("ejs", async (path, data, cb) => {
+  try {
+    let html = await ejs.renderFile(path, data, { async: true, client: true });
+    cb(null, html);
+  } catch (e) {
+    cb(e, "");
+  }
+});
 
 function filesToRender(dir) {
   function fileSubstring(file, dir) {
@@ -35,16 +47,13 @@ function filesToRender(dir) {
   });
 }
 
-async function renderFile(file) {
-  await server.get(file, async (req, res) => {
-    await res.render(file.slice(1), {
-      async: true,
-      client: true,
-    });
+function renderFile(file) {
+  server.get(file, (req, res) => {
+    return res.render(file.slice(1));
   });
   if (file.slice(-5) === "index") {
-    await server.get(file.substring(0, file.length - 5), async (req, res) => {
-      await res.render(file.slice(1), { async: true });
+    server.get(file.substring(0, file.length - 5), (req, res) => {
+      return res.render(file.slice(1));
     });
   }
 }
