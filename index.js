@@ -38,10 +38,8 @@ function filesToRender(dir) {
 function renderFile(file) {
   console.log(file);
 
-  server.get(file, async (req, res) => {
-    const data = await fetch('https://jsonplaceholder.typicode.com/users')
-      .then(response => response.json());
-    res.render(file.slice(1), { data: data });
+  server.get(file, (req, res) => {
+    res.render(file.slice(1));
   });
 
   if (file.slice(-5) === "index") {
