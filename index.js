@@ -36,9 +36,14 @@ function filesToRender(dir) {
 }
 
 function renderFile(file) {
-  server.get(file, (req, res) => {
-    res.render(file.slice(1));
+  console.log(file);
+
+  server.get(file, async (req, res) => {
+    const data = await fetch('https://jsonplaceholder.typicode.com/users')
+      .then(response => response.json());
+    res.render(file.slice(1), { data: data });
   });
+
   if (file.slice(-5) === "index") {
     server.get(file.substring(0, file.length - 5), (req, res) => {
       res.render(file.slice(1), { async: true, client: true });

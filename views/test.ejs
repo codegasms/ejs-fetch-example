@@ -9,26 +9,11 @@
 
 <body>
 
-  <%
-    let data = fetch('https://jsonplaceholder.typicode.com/users')
-      .then(response => response.json())
-      .then(data => {
-        // console.log(data);
-        %>
-
-  <% data.forEach(item => { %>
-  <%= item.name %>
-  <% }) %>
-  <%
-      });
-    %>
-
-  <% console.log(data); %>
-
-  <% data.forEach(item => { %>
-  <%= item.name %>
-  <% }) %>
-
+    <ul>
+      <% data.forEach(item => { %>
+      <li> <%= item.name %> </li>
+      <% }); %>
+    </ul>
 
 </body>
 
