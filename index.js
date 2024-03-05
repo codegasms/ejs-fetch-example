@@ -3,6 +3,7 @@ frontend server
 server HTML,CSS and frontend js
 
 use ejs to render html
+credits: https://gist.github.com/aahnik/3ddbc3daf72890c4566498138cd14797
 */
 
 import express from "express";
