@@ -37,7 +37,7 @@ function filesToRender(dir) {
 
 function renderFile(file) {
   server.get(file, (req, res) => {
-    res.render(file.slice(1));
+    res.render(file.slice(1), { async: true, client: true });
   });
   if (file.slice(-5) === "index") {
     server.get(file.substring(0, file.length - 5), (req, res) => {
