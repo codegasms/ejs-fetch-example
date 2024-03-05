@@ -18,7 +18,7 @@ server.set("view engine", "ejs");
 // https://stackoverflow.com/questions/60203249/ejs-async-true-with-node-express
 server.engine("ejs", async (path, data, cb) => {
   try {
-    let html = await ejs.renderFile(path, data, { async: true, client: true });
+    let html = await ejs.renderFile(path, data, { async: true });
     cb(null, html);
   } catch (e) {
     cb(e, "");
