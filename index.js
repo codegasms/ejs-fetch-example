@@ -35,13 +35,16 @@ function filesToRender(dir) {
   });
 }
 
-function renderFile(file) {
-  server.get(file, (req, res) => {
-    res.render(file.slice(1), { async: true, client: true });
+async function renderFile(file) {
+  await server.get(file, async (req, res) => {
+    await res.render(file.slice(1), {
+      async: true,
+      client: true,
+    });
   });
   if (file.slice(-5) === "index") {
-    server.get(file.substring(0, file.length - 5), (req, res) => {
-      res.render(file.slice(1), { async: true, client: true });
+    await server.get(file.substring(0, file.length - 5), async (req, res) => {
+      await res.render(file.slice(1), { async: true });
     });
   }
 }
@@ -50,6 +53,6 @@ filesToRender("views").map((file) => renderFile(file));
 
 server.use(express.static("public"));
 
-server.listen(3001, () => {
-  console.log(`Serving ejs from ${3001}`);
+server.listen(3003, () => {
+  console.log(`Serving ejs from ${3003}`);
 });
